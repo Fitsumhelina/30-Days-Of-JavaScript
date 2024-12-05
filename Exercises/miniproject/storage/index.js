@@ -30,6 +30,7 @@ function addTaskToDOM(task) {
     // Create the delete button
     const deleteButton = document.createElement('button');
     deleteButton.textContent = 'Delete';
+    deleteButton.style.backgroundColor = 'red';
     deleteButton.addEventListener('click', () => {
         li.remove(); // Remove the list item
         saveTasks(); // Update localStorage
@@ -60,6 +61,7 @@ function addTodo() {
 
 // Attach the addTodo function to the Add button
 addButton.addEventListener('click', addTodo);
+addButton.style.backgroundColor = 'green';
 
 // Optional: Add support for pressing Enter to add the task
 todoInput.addEventListener('keypress', (event) => {
