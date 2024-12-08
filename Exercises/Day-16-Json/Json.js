@@ -1,5 +1,4 @@
 // Exercises
-
 const skills = ['HTML', 'CSS', 'JS', 'React','Node', 'Python']
 let age = 250;
 let isMarried = true
@@ -13,6 +12,7 @@ const student = {
 
 // Exercises Level 1
 // Change skills array to JSON using JSON.stringify()
+
 
 // const skill = JSON.stringify(skills)
 // console.log(skill)

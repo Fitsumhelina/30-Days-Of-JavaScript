@@ -1,3 +1,4 @@
+
 const url = 'https://restcountries.com/v2/all'
 const fetchData = async () => {
     try {
