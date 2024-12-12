@@ -7,7 +7,7 @@ const countriesAPI = 'https://restcountries.com/v2/all';
 document.addEventListener('DOMContentLoaded' , () => {
   createNumberGrid()
   fetchCountries()
-  
+  createDetailsPage()
 })
 
 const createNumberGrid =() => {
@@ -73,9 +73,76 @@ const isPrime = (num) => {
   return true;
 }
 
-
-
 // Use the countries array to display all the countries.See the design
-
 //completed
+
+// Exercises: Level 3
+// Check the requirement of this project from both images(jpg and gif). All the data and CSS has been implemented using JavaScript only. The data is found on starter folder project_3. The drop down button has been created using details HTML element.
+
+
+const createDetailsPage = () => {
+  const topics = [
+    {
+      title: "Frontend Development",
+      content: `
+        <p><strong>Frontend Development</strong> focuses on the user-facing part of a web application. This includes the design, layout, structure, and interactivity of a website.</p>
+        <ul>
+          <li>Languages: HTML, CSS, JavaScript</li>
+          <li>Frameworks: React, Angular, Vue.js</li>
+          <li>Tools: Webpack, Babel, npm</li>
+          <li>UI/UX Design: Figma, Adobe XD</li>
+          <li>Responsive Design: Bootstrap, CSS Grid</li>
+        </ul>`
+    },
+    {
+      title: "Backend Development",
+      content: `
+        <p><strong>Backend Development</strong> involves the server-side of a web application, including databases, APIs, and authentication.</p>
+        <ul>
+          <li>Languages: Python, Java, PHP, Node.js</li>
+          <li>Frameworks: Express.js, Django, Spring Boot</li>
+          <li>Databases: MySQL, MongoDB, PostgreSQL</li>
+          <li>API Design: RESTful APIs, GraphQL</li>
+          <li>Authentication: OAuth, JWT</li>
+        </ul>`
+    },
+    {
+      title: "Mobile App Development",
+      content: `
+        <p><strong>Mobile App Development</strong> involves building applications for mobile devices such as smartphones and tablets.</p>
+        <ul>
+          <li>Languages: Swift, Kotlin, Java</li>
+          <li>Frameworks: React Native, Flutter, Xamarin</li>
+          <li>Tools: Android Studio, Xcode</li>
+          <li>Design Guidelines: Material Design (Android), Human Interface Guidelines (iOS)</li>
+        </ul>`
+    },
+    {
+      title: "Full Stack Development",
+      content: `
+        <p><strong>Full Stack Development</strong> involves working on both the frontend and backend of a web application, covering all stages of development.</p>
+        <ul>
+          <li>Languages: HTML, CSS, JavaScript, Python, Ruby</li>
+          <li>Frameworks: Node.js, Django, Rails, React</li>
+          <li>Databases: MongoDB, MySQL, PostgreSQL</li>
+          <li>Version Control: Git, GitHub, GitLab</li>
+          <li>Deployment: Docker, AWS, Heroku</li>
+        </ul>`
+    }
+  ];
+
+  // Create details elements for each topic
+  topics.forEach(topic => {
+    const details = document.createElement('details');
+    const summary = document.createElement('summary');
+    summary.innerText = topic.title;
+    details.appendChild(summary);
+
+    const content = document.createElement('div');
+    content.innerHTML = topic.content;
+    details.appendChild(content);
+
+    document.body.appendChild(details);
+  });
+};
 
