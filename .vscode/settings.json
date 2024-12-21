@@ -1,4 +1,7 @@
 {
     "codesnap.backgroundColor": "#abb8c3",
-    "codesnap.transparentBackground": false
+    "codesnap.transparentBackground": false,
+    "cSpell.words": [
+        "allparagraphs"
+    ]
 }
