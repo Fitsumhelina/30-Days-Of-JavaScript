@@ -10,6 +10,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     function1()
     function2()
+    function3()
 })
 
 const function1 = () => {
@@ -22,6 +23,15 @@ const function1 = () => {
         document.body.appendChild(paragraph)
         i++
     }
+    const div = document.getElementsByClassName('one') 
+    const timeanddate = document.createElement('h1')
+    document.body.appendChild(timeanddate)
+    timeanddate.innerText = new Date().toLocaleString()
+    timeanddate.id = 'h3'
+    if (div.length > 0) {
+        div[0].appendChild(timeanddate); // Append the h1 element to the first 'one' element
+      }
+
     const allParagraphs = document.querySelectorAll('p')
     for (i=0; i<allParagraphs.length; i++) {
         console.log(`${allParagraphs[i].id}`)
@@ -49,11 +59,25 @@ const function2 = () => {
 
 // Exercise: Level 3
 // DOM: Mini project 1
-// Develop the following application, use the following HTML elements to get started with. You will get the same code on starter folder. Apply all the styles and functionality using JavaScript only.
+// Develop the following application, use the following HTML elements to get started with.
+//  You will get the same code on starter folder. Apply all the styles and functionality using JavaScript only.
+
 // The year color is changing every 1 second
 // The date and time background color is changing every on seconds
 // Completed challenge has background green
 // Ongoing challenge has background yellow
 // Coming challenges have background red
 
+const function3 = () => {
+    const dateandtime = document.getElementById('h3')
 
+    const randomcolor = (x,y,z) => {
+        return `rgb(${Math.floor(Math.random()*x)},${Math.floor(Math.random()*y)},${Math.floor(Math.random()*z)}`
+    }
+    setInterval(()=> {
+        dateandtime.style.backgroundColor = randomcolor(255,255,255)
+
+    },1000)
+
+
+}
