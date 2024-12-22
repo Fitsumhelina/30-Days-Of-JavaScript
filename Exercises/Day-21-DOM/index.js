@@ -69,15 +69,30 @@ const function2 = () => {
 // Coming challenges have background red
 
 const function3 = () => {
-    const dateandtime = document.getElementById('h3')
-
     const randomcolor = (x,y,z) => {
         return `rgb(${Math.floor(Math.random()*x)},${Math.floor(Math.random()*y)},${Math.floor(Math.random()*z)}`
     }
+
+    const header = document.querySelector(`h1`)
+    const year = header.textContent.match(/\b\d{4}\b/)
+
+    if (year) {
+        header.innerHTML = header.innerHTML.replace(year, `<span id="year">${year}</span>`);
+        const yearelement = document.getElementById('year');
+
+        setInterval(()=> {
+            yearelement.style.color = randomcolor(255,255,255)
+        },1000)
+    }
+    
+    
+    const dateandtime = document.getElementById('h3')
     setInterval(()=> {
         dateandtime.style.backgroundColor = randomcolor(255,255,255)
 
     },1000)
+
+    
 
 
 }
