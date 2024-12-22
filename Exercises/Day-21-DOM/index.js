@@ -92,7 +92,33 @@ const function3 = () => {
 
     },1000)
 
-    
 
+    const all = document.querySelectorAll('li')
+    const Completed = []
+    const onging = []
+    const coming =[]
+
+    all.forEach(element => {
+        let text  = element.textContent
+        if (text.includes('Done')) {
+            Completed.push(element)
+        }
+        else if (text.includes('Ongoing')) {
+            onging.push(element)
+        }
+        else {
+            coming.push(element)
+        }
+    });
+
+    Completed.forEach(item => {
+        item.style.backgroundColor = 'green'
+    })
+    onging.forEach(item => {
+        item.style.backgroundColor = 'yellow'
+    })
+    coming.forEach(item => {
+        item.style.backgroundColor = 'red'
+    })
 
 }
