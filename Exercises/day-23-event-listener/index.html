@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form>
+    <form class="formone">
         <label for="mass"> MASS</label> 
         <input type="number" placeholder="enter your mass" id="mass">
         <label for="height">height</label> 
@@ -14,8 +14,13 @@
         <button id="submit">submit</button>
         <h3 id="p1"></h3>
         <h2 id="p2"></h2>
-       
     </form>
+    <div class="primeodd">
+        <label for="num"> enter the number </label>
+        <input type="number" placeholder="enter the number" id="num">
+        <button id="generate" disabled> Generate </button>
+
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -48,11 +53,10 @@
                 else {
                     paragraph2.textContent = `You are not healthy`;
                 }
-
-            
         });
         });
     
     </script>
+    <script src="./index.js"></script>
 </body>
 </html>
