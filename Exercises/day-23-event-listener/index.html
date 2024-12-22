@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action=""> 
+        <label for="email"> enter your email here : </label>
+        <input type="text" id="email">
+        <button id="submit">click me </button>
+        <p id="paragraph"></p>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const email = document.getElementById('email');
+            const submit = document.getElementById('submit');
+            email.addEventListener ('input', e=> {
+                console.log(`here is the text  ; ${e.target.value}`);
+                const paragraph = document.getElementById('paragraph');
+                paragraph.textContent = `Your email is ${e.target.value}`;
+            })
+            submit.addEventListener('click', e => {
+                e.preventDefault();
+                alert('form submitted');
+            })
+            submit.style.width = '70px';
+            submit.style.height = '20px';
+            submit.style.backgroundColor = 'green';
+            
+        });
+       
+    </script>
+</body>
+</html>
