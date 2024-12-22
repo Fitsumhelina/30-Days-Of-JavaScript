@@ -6,33 +6,53 @@
     <title>Document</title>
 </head>
 <body>
-    <form action=""> 
-        <label for="email"> enter your email here : </label>
-        <input type="text" id="email">
-        <button id="submit">click me </button>
-        <p id="paragraph"></p>
+    <form>
+        <label for="mass"> MASS</label> 
+        <input type="number" placeholder="enter your mass" id="mass">
+        <label for="height">height</label> 
+        <input type="number" placeholder="enter your height" id="height">
+        <button id="submit">submit</button>
+        <h3 id="p1"></h3>
+        <h2 id="p2"></h2>
+       
     </form>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
-            const email = document.getElementById('email');
-            const submit = document.getElementById('submit');
-            email.addEventListener ('input', e=> {
-                console.log(`here is the text  ; ${e.target.value}`);
-                const paragraph = document.getElementById('paragraph');
-                paragraph.textContent = `Your email is ${e.target.value}`;
-            })
-            submit.addEventListener('click', e => {
-                e.preventDefault();
-                alert('form submitted');
-            })
-            submit.style.width = '70px';
-            submit.style.height = '20px';
-            submit.style.backgroundColor = 'green';
+         const mass = document.getElementById('mass');
+         const height = document.getElementById('height');
+         const submit = document.getElementById('submit');
+
+         submit.addEventListener('click', (e) => {
+             e.preventDefault();
+             const massValue = parseFloat(mass.value);
+             const heightValue = parseFloat(height.value);
+                const bmi = massValue / (heightValue * heightValue);
+                const paragraph = document.getElementById('p1');
+                paragraph.textContent = `Your BMI is ${bmi}`;
+
+                const paragraph2 = document.getElementById('p2');
+                if (bmi > 18.5 && bmi < 24.9) {
+                    paragraph2.textContent = `You are healthy`;
+                }
+                else if (bmi > 25 && bmi < 29.9) {
+                    paragraph2.textContent = `You are overweight`;
+                }
+                else if (bmi > 30) {
+                    paragraph2.textContent = `You are obese`;
+                }
+                else if (bmi<18.5) {
+                    paragraph2.textContent = `You are underweight`;
+                }
+                else {
+                    paragraph2.textContent = `You are not healthy`;
+                }
+
             
         });
-       
+        });
+    
     </script>
 </body>
 </html>
