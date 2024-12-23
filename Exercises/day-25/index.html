@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const countriesAPI = "https://restcountries.com/v2/all";
+        const data = async () => {
+          try {
+            const response = await fetch(countriesAPI);
+            const countries = await response.json();
+            countries.sort((a, b) => b.population - a.population);
+
+            countries.forEach((country) => {
+              const countryDiv = document.createElement("div");
+              countryDiv.innerHTML = `
+                            <h3>${country.name}</h3>
+                            <!-- <p>${country.population}</p> -->
+                        `;
+              countryDiv.style.backgroundColor = "lightgray";
+              countryDiv.style.display = "flex";
+              countryDiv.style.alignItems = "center";
+              countryDiv.style.marginBottom = "5px";
+              document.body.appendChild(countryDiv);
+            });
+          } catch (error) {
+            console.log(error);
+          }
+        };
+
+        data();
+      });
+    </script>
+  </body>
+</html>
