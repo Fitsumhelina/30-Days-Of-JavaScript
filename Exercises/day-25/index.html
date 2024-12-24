@@ -3,36 +3,164 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>World Countries Data</title>
   </head>
   <body>
+    <div id="container"></div>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const countriesAPI = "https://restcountries.com/v2/all";
-        const data = async () => {
+        const container = document.getElementById("container");
+
+        // Create title and subtitle
+        const title = document.createElement("h1");
+        title.textContent = "World Countries Data";
+        title.style.textAlign = "center";
+        title.style.color = "#ff9800";
+        title.style.marginBottom = "5px";
+        container.appendChild(title);
+
+        const subtitle = document.createElement("p");
+        subtitle.textContent = "Currently, we have 250 countries";
+        subtitle.style.textAlign = "center";
+        subtitle.style.color = "#666";
+        subtitle.style.marginTop = "0";
+        container.appendChild(subtitle);
+
+        // Create buttons
+        const buttonContainer = document.createElement("div");
+        buttonContainer.style.display = "flex";
+        buttonContainer.style.justifyContent = "center";
+        buttonContainer.style.margin = "20px 0";
+        buttonContainer.style.gap = "10px";
+
+        const populationButton = document.createElement("button");
+        populationButton.textContent = "Population";
+        populationButton.style.padding = "10px 20px";
+        populationButton.style.backgroundColor = "#ff9800";
+        populationButton.style.border = "none";
+        populationButton.style.color = "#fff";
+        populationButton.style.cursor = "pointer";
+        populationButton.style.borderRadius = "5px";
+        populationButton.style.fontSize = "16px";
+        populationButton.addEventListener("click", () => fetchAndRenderPopulation());
+
+        const languagesButton = document.createElement("button");
+        languagesButton.textContent = "Languages";
+        languagesButton.style.padding = "10px 20px";
+        languagesButton.style.backgroundColor = "#ff9800";
+        languagesButton.style.border = "none";
+        languagesButton.style.color = "#fff";
+        languagesButton.style.cursor = "pointer";
+        languagesButton.style.borderRadius = "5px";
+        languagesButton.style.fontSize = "16px";
+        languagesButton.addEventListener("click", () => fetchAndRenderLanguages());
+
+        buttonContainer.appendChild(populationButton);
+        buttonContainer.appendChild(languagesButton);
+        container.appendChild(buttonContainer);
+
+        // Chart container
+        const chart = document.createElement("div");
+        chart.style.marginTop = "20px";
+        chart.style.maxWidth = "800px";
+        chart.style.marginLeft = "auto";
+        chart.style.marginRight = "auto";
+        container.appendChild(chart);
+
+        // Fetch and render population data
+        const fetchAndRenderPopulation = async () => {
+          chart.innerHTML = ""; // Clear chart
           try {
             const response = await fetch(countriesAPI);
             const countries = await response.json();
-            countries.sort((a, b) => b.population - a.population);
+            const sortedCountries = countries.sort((a, b) => b.population - a.population).slice(0, 10);
+            const maxPopulation = sortedCountries[0].population;
 
-            countries.forEach((country) => {
-              const countryDiv = document.createElement("div");
-              countryDiv.innerHTML = `
-                            <h3>${country.name}</h3>
-                            <!-- <p>${country.population}</p> -->
-                        `;
-              countryDiv.style.backgroundColor = "lightgray";
-              countryDiv.style.display = "flex";
-              countryDiv.style.alignItems = "center";
-              countryDiv.style.marginBottom = "5px";
-              document.body.appendChild(countryDiv);
+            sortedCountries.forEach((country) => {
+              const barContainer = document.createElement("div");
+              barContainer.style.display = "flex";
+              barContainer.style.alignItems = "center";
+              barContainer.style.marginBottom = "10px";
+
+              const label = document.createElement("span");
+              label.textContent = country.name;
+              label.style.width = "100px";
+              label.style.textAlign = "left";
+              label.style.marginRight = "10px";
+
+              const bar = document.createElement("div");
+              bar.style.height = "20px";
+              bar.style.backgroundColor = "#ff9800";
+              bar.style.width = `${(country.population / maxPopulation) * 100}%`;
+              bar.style.marginRight = "10px";
+
+              const value = document.createElement("span");
+              value.textContent = country.population;
+
+              barContainer.appendChild(label);
+              barContainer.appendChild(bar);
+              barContainer.appendChild(value);
+              chart.appendChild(barContainer);
             });
           } catch (error) {
             console.log(error);
           }
         };
 
-        data();
+        // Fetch and render languages data
+        const fetchAndRenderLanguages = async () => {
+          chart.innerHTML = ""; // Clear chart
+          try {
+            const response = await fetch(countriesAPI);
+            const countries = await response.json();
+            const languageCounts = {};
+
+            countries.forEach((country) => {
+              country.languages.forEach((language) => {
+                languageCounts[language.name] =
+                  (languageCounts[language.name] || 0) + 1;
+              });
+            });
+
+            const sortedLanguages = Object.entries(languageCounts)
+              .sort((a, b) => b[1] - a[1])
+              .slice(0, 10);
+            const maxLanguageCount = sortedLanguages[0][1];
+
+            sortedLanguages.forEach(([language, count]) => {
+              const barContainer = document.createElement("div");
+              barContainer.style.display = "flex";
+              barContainer.style.alignItems = "center";
+              barContainer.style.marginBottom = "10px";
+
+              const label = document.createElement("span");
+              label.textContent = language;
+              label.style.width = "100px";
+              label.style.textAlign = "left";
+              label.style.marginRight = "10px";
+
+              const bar = document.createElement("div");
+              bar.style.height = "20px";
+              bar.style.backgroundColor = "#ff9800";
+              bar.style.width = `${(count / maxLanguageCount) * 100}%`;
+              bar.style.marginRight = "10px";
+
+              const value = document.createElement("span");
+              value.textContent = count;
+
+              barContainer.appendChild(label);
+              barContainer.appendChild(bar);
+              barContainer.appendChild(value);
+              chart.appendChild(barContainer);
+            });
+          } catch (error) {
+            console.log(error);
+          }
+        };
+
+        // Default to population data
+        fetchAndRenderPopulation();
       });
     </script>
   </body>
