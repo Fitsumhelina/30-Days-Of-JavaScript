@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <form id="form"> 
+      <input type="text" id="firstName" placeholder="Enter your first name">
+      <input type="text" id="lname" placeholder="Enter your last name">
+      <select id="country">
+        <option value="usa">USA</option>
+        <option value="ethiopia">Ethiopia</option>
+        <option value="kenya">Kenya</option>
+        <option value="canada">Canada</option>
+      </select>
+      <input type="text" id="score" placeholder="Enter the score">
+      <button type="button" id="add">Add</button>
+  </form>
+
+  <table id="table" border="1">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Country</th>
+        <th>Score</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("form");
+      const firstNameInput = document.getElementById("firstName");
+      const lastNameInput = document.getElementById("lname");
+      const countrySelect = document.getElementById("country");
+      const scoreInput = document.getElementById("score");
+      const addButton = document.getElementById("add");
+      const tableBody = document.querySelector("#table tbody");
+
+      const addRowToTable = (firstName, lastName, country, score) => {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+          <td>${firstName}</td>
+          <td>${lastName}</td>
+          <td>${country}</td>
+          <td>${score}</td>
+          <td><button class="edit-btn">Edit</button></td>
+          <td><button class="delete-btn">Delete</button></td>
+        `;
+
+        // Attach edit and delete functionality
+        tr.querySelector(".edit-btn").addEventListener("click", () => {
+          firstNameInput.value = firstName;
+          lastNameInput.value = lastName;
+          countrySelect.value = country;
+          scoreInput.value = score;
+          tableBody.removeChild(tr);
+          sortTable();
+        });
+
+        tr.querySelector(".delete-btn").addEventListener("click", () => {
+          tableBody.removeChild(tr);
+          sortTable();
+        });
+
+        tableBody.appendChild(tr);
+      };
+
+      const sortTable = () => {
+        const rows = Array.from(tableBody.querySelectorAll("tr"));
+      
+        rows.sort((rowA, rowB) => {
+          const scoreA = parseInt(rowA.querySelectorAll("td")[3].textContent, 10);
+          const scoreB = parseInt(rowB.querySelectorAll("td")[3].textContent, 10);
+          return scoreB - scoreA; // Sort in descending order
+        });
+      
+        // Append sorted rows back to the table body
+        tableBody.innerHTML = ""; // Clear existing rows
+        rows.forEach(row => tableBody.appendChild(row));
+      };
+      
+      addButton.addEventListener("click", () => {
+        const firstName = firstNameInput.value.trim();
+        const lastName = lastNameInput.value.trim();
+        const country = countrySelect.value;
+        const score = scoreInput.value.trim();
+
+        if (!firstName || !lastName || !score || isNaN(score)) {
+          alert("Please fill out all fields and enter a valid score.");
+          return;
+        }
+
+        addRowToTable(firstName, lastName, country, score);
+        sortTable(); // Sort the table after adding a new row
+
+        // Clear input fields after adding
+        firstNameInput.value = "";
+        lastNameInput.value = "";
+        scoreInput.value = "";
+      });
+    });
+  </script>
+</body>
+</html>
